@@ -6,14 +6,15 @@ import matplotlib.pyplot as plt
 os.makedirs("charts", exist_ok=True)
 
 df = pd.read_csv("data/escalations_clean.csv")
-df["date"] = pd.to_datetime(df["date"], format="mixed")
+df.columns = ["issue", "date"]
+df["date"] = pd.to_datetime(df["date"], format="%d/%m/%y")
 
 rules = {
 "Intercom": r"intercom",
 "AWS WorkSpaces": r"aws",
 "Backoffice": r"backoffice|\bbo\b|gr8",
 "VPN": r"vpn",
-"Login and access": r"log in|login|password|otp|2fa|access|account",
+"Login and access": r"log in|logging in|login|password|otp|2fa|access|account",
 }
 
 def categorize(text):
